@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHOP-STORE | Nos Réseaux</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+[data-theme="dark"]{--accent:#38bdf8;--accent2:#0ea5e9;--accent-glow:rgba(56,189,248,0.2);--red:#e02020;--green:#25d366;--bg:#0a0a0f;--bg2:#0f0f18;--bg3:#13131f;--card:#111118;--border:#1e1e2e;--border2:#252535;--text:#f0f4ff;--muted:#6b7280}
+[data-theme="light"]{--accent:#e02020;--accent2:#b01515;--accent-glow:rgba(224,32,32,0.15);--red:#e02020;--green:#25d366;--bg:#f8f8f8;--bg2:#fff;--bg3:#f0f0f0;--card:#fff;--border:#e5e5e5;--border2:#d4d4d4;--text:#111;--muted:#666}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-height:100vh;padding-bottom:3rem}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.2rem;border-bottom:1px solid var(--border);background:var(--bg2);position:sticky;top:0;z-index:200}
+.back-btn{display:flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.5rem .9rem;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .22s;text-decoration:none}
+.back-btn:hover{background:var(--accent2)}
+.back-btn:active{transform:scale(.93)}
+.back-arrow{display:inline-block;transition:transform .22s}
+.back-btn:hover .back-arrow{transform:translateX(-5px)}
+.topbar-title{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+.page{max-width:620px;margin:0 auto;padding:1.2rem 1rem}
+.hero-box{text-align:center;margin-bottom:1.5rem}
+.hero-icon{font-size:2.5rem;margin-bottom:.5rem}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:1.9rem;font-weight:900;letter-spacing:2px;margin-bottom:.4rem}
+.hero-title span{color:var(--accent)}
+.hero-sub{font-size:.82rem;color:var(--muted);line-height:1.6}
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.social-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1rem;text-align:center;text-decoration:none;transition:all .22s;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.social-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 6px 20px var(--accent-glow)}
+.social-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem}
+.social-name{font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:800;letter-spacing:.5px}
+.social-handle{font-size:.72rem;color:var(--muted)}
+.social-followers{font-size:.68rem;color:var(--accent);font-weight:600}
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--muted)}
+.empty-state .ee-icon{font-size:2.5rem;margin-bottom:.7rem;opacity:.5}
+.empty-state p{font-size:.85rem}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back-btn" href="index.html"><span class="back-arrow">←</span> Accueil</a>
+  <div class="topbar-title">🌐 Nos Réseaux</div>
+  <div style="width:90px"></div>
+</div>
+
+<div class="page">
+  <div class="hero-box">
+    <div class="hero-icon">🌐</div>
+    <div class="hero-title">NOS <span>RÉSEAUX</span></div>
+    <div class="hero-sub">Suivez-nous partout pour ne rien rater de nos offres et actualités !</div>
+  </div>
+
+  <div class="social-grid" id="social-grid">
+    <div style="grid-column:1/-1" class="empty-state"><div class="ee-icon">⏳</div><p>Chargement...</p></div>
+  </div>
+</div>
+
+<script>
+document.documentElement.setAttribute('data-theme', localStorage.getItem('ss_theme') || 'dark');
+
+const ICONS = {
+  facebook:{icon:'📘',bg:'#1877f2'},
+  instagram:{icon:'📸',bg:'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)'},
+  tiktok:{icon:'🎵',bg:'#000'},
+  telegram:{icon:'✈️',bg:'#229ed9'},
+  whatsapp:{icon:'💬',bg:'#25d366'},
+  youtube:{icon:'▶️',bg:'#ff0000'},
+  twitter:{icon:'🐦',bg:'#1da1f2'},
+  x:{icon:'✖️',bg:'#000'},
+  snapchat:{icon:'👻',bg:'#fffc00'},
+  discord:{icon:'🎮',bg:'#5865f2'},
+  default:{icon:'🔗',bg:'#666'}
+};
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+const firebaseConfig={apiKey:"AIzaSyAdWC5zTUJGmrXDCnRcElomHHgcVPG-2Co",authDomain:"shop-stor-1d943.firebaseapp.com",databaseURL:"https://shop-stor-1d943-default-rtdb.firebaseio.com",projectId:"shop-stor-1d943",storageBucket:"shop-stor-1d943.firebasestorage.app",messagingSenderId:"851885624502",appId:"1:851885624502:web:16bb29dd0494d34a846a17"};
+let app;try{app=initializeApp(firebaseConfig,'reseaux-app');}catch(e){app=initializeApp(firebaseConfig);}
+const db=getDatabase(app);
+
+onValue(ref(db,'reseaux_sociaux'), snap => {
+  const grid = document.getElementById('social-grid');
+  if(!snap.exists()){
+    grid.innerHTML = '<div style="grid-column:1/-1" class="empty-state"><div class="ee-icon">🌐</div><p>Aucun réseau social ajouté pour le moment.</p></div>';
+    return;
+  }
+  const data = snap.val();
+  const entries = Object.entries(data).filter(([k,r]) => r.actif !== false);
+  if(!entries.length){
+    grid.innerHTML = '<div style="grid-column:1/-1" class="empty-state"><div class="ee-icon">🌐</div><p>Aucun réseau social actif pour le moment.</p></div>';
+    return;
+  }
+  grid.innerHTML = entries.map(([k,r]) => {
+    const type = (r.type || 'default').toLowerCase();
+    const conf = ICONS[type] || ICONS.default;
+    return `<a class="social-card" href="${r.lien}" target="_blank">
+      <div class="social-icon" style="background:${conf.bg}">${conf.icon}</div>
+      <div class="social-name">${r.nom}</div>
+      ${r.handle ? `<div class="social-handle">${r.handle}</div>` : ''}
+      ${r.followers ? `<div class="social-followers">${r.followers}</div>` : ''}
+    </a>`;
+  }).join('');
+});
+</script>
+</body>
+</html>
