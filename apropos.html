@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>À propos — SHOP-STORE</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#e02020;--bg:#0a0a0a;--card:#141414;--border:#252525;--border2:#2a2a2a;--text:#fff;--muted:#888}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-height:100vh;padding-bottom:3rem}
+nav{background:#0d0d0d;border-bottom:2px solid var(--border2);padding:0 1.4rem;display:flex;align-items:center;height:62px;gap:.8rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.7)}
+.logo{display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.logo-icon{width:36px;height:36px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.logo-name{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:1px;color:#fff}
+.logo-name span{color:var(--red)}
+.back-btn{margin-left:auto;background:transparent;border:1px solid var(--border2);color:var(--muted);padding:.3rem .8rem;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:600;text-decoration:none;transition:all .2s}
+.back-btn:hover{color:#fff;border-color:#fff}
+.page{max-width:680px;margin:0 auto;padding:2rem 1.2rem}
+
+/* HERO */
+.hero{text-align:center;padding:2rem 0 1.5rem}
+.hero-badge{display:inline-block;background:rgba(224,32,32,.12);border:1px solid rgba(224,32,32,.25);color:var(--red);font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:2px;padding:.25rem .7rem;border-radius:4px;margin-bottom:1rem}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:2.6rem;font-weight:900;letter-spacing:1px;line-height:1.1;margin-bottom:.8rem}
+.hero-title span{color:var(--red)}
+.hero-sub{font-size:.88rem;color:var(--muted);line-height:1.7;max-width:480px;margin:0 auto}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:2rem 0}
+.stat-card{background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:1.1rem;text-align:center}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:var(--red);line-height:1}
+.stat-label{font-size:.72rem;color:var(--muted);margin-top:.3rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px}
+
+/* SECTIONS */
+.divider{height:1px;background:var(--border2);margin:1.8rem 0}
+.section{margin-bottom:1.8rem}
+.section-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:2px;color:var(--red);margin-bottom:.3rem}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;letter-spacing:.5px;margin-bottom:.7rem}
+.section p{font-size:.84rem;color:#ccc;line-height:1.8;margin-bottom:.6rem}
+
+/* VALEURS */
+.values-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.8rem}
+.val-card{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:1rem}
+.val-icon{font-size:1.4rem;margin-bottom:.4rem}
+.val-title{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.3px;margin-bottom:.3rem}
+.val-desc{font-size:.76rem;color:var(--muted);line-height:1.6}
+
+/* JEUX */
+.games-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+.game-tag{background:#1a1a1a;border:1px solid var(--border2);border-radius:5px;padding:.25rem .6rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;color:#ccc}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.8rem}
+.contact-card{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:1rem;text-align:center;text-decoration:none;transition:border .2s}
+.contact-card:hover{border-color:var(--red)}
+.contact-card .cc-icon{font-size:1.5rem;margin-bottom:.4rem}
+.contact-card .cc-label{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;color:#fff;margin-bottom:.2rem}
+.contact-card .cc-val{font-size:.72rem;color:var(--muted)}
+
+.update-date{font-size:.72rem;color:#555;text-align:right;margin-top:1.5rem}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="index.html">
+    <div class="logo-icon">🎮</div>
+    <div><div class="logo-name">SHOP<span>-STORE</span></div></div>
+  </a>
+  <a class="back-btn" href="index.html">← Retour</a>
+</nav>
+
+<div class="page">
+  <div class="hero">
+    <div class="hero-badge">🎮 QUI SOMMES-NOUS</div>
+    <div class="hero-title">À propos de <span>SHOP-STORE</span></div>
+    <div class="hero-sub">La boutique de référence pour les recharges de jeux vidéo et abonnements digitaux en Afrique Centrale et de l'Ouest.</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Jeux & applis</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Pays couverts</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Service client</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-eyebrow">Notre histoire</div>
+    <div class="section-title">Né pour les gamers africains</div>
+    <p>SHOP-STORE est né d'un constat simple : les joueurs africains méritent un service de recharge rapide, fiable et accessible. Nous avons créé cette plateforme pour répondre à ce besoin avec sérieux et professionnalisme.</p>
+    <p>Basés à <strong>Brazzaville, Congo</strong>, nous servons des clients dans toute l'Afrique Centrale et de l'Ouest avec des méthodes de paiement locales comme MTN Money et Airtel Money.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-eyebrow">Nos valeurs</div>
+    <div class="section-title">Ce qui nous définit</div>
+    <div class="values-grid">
+      <div class="val-card">
+        <div class="val-icon">⚡</div>
+        <div class="val-title">Rapidité</div>
+        <div class="val-desc">Livraison en 1 à 30 minutes après paiement confirmé.</div>
+      </div>
+      <div class="val-card">
+        <div class="val-icon">🔒</div>
+        <div class="val-title">Sécurité</div>
+        <div class="val-desc">Paiements sécurisés via plateformes certifiées.</div>
+      </div>
+      <div class="val-card">
+        <div class="val-icon">💬</div>
+        <div class="val-title">Proximité</div>
+        <div class="val-desc">Service client disponible sur WhatsApp tous les jours.</div>
+      </div>
+      <div class="val-card">
+        <div class="val-icon">💰</div>
+        <div class="val-title">Prix justes</div>
+        <div class="val-desc">Les meilleurs tarifs du marché, sans frais cachés.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-eyebrow">Nos produits</div>
+    <div class="section-title">Ce que nous proposons</div>
+    <p>Recharges de jeux vidéo :</p>
+    <div class="games-row">
+      <span class="game-tag">🔥 Free Fire</span>
+      <span class="game-tag">🎯 PUBG</span>
+      <span class="game-tag">⚔️ Mobile Legends</span>
+      <span class="game-tag">🏆 Fortnite</span>
+      <span class="game-tag">🎮 COD Mobile</span>
+      <span class="game-tag">⚽ EA FC</span>
+      <span class="game-tag">🌟 Genshin Impact</span>
+      <span class="game-tag">🎲 Roblox</span>
+    </div>
+    <p style="margin-top:.8rem">Abonnements digitaux :</p>
+    <div class="games-row">
+      <span class="game-tag">🎬 Netflix</span>
+      <span class="game-tag">🎵 Spotify</span>
+      <span class="game-tag">▶️ YouTube Premium</span>
+      <span class="game-tag">📸 Snapchat+</span>
+      <span class="game-tag">🏰 Disney+</span>
+      <span class="game-tag">🎌 Crunchyroll</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-eyebrow">Nous contacter</div>
+    <div class="section-title">Toujours disponibles pour vous</div>
+    <div class="contact-grid">
+      <a class="contact-card" href="https://wa.me/242065805713">
+        <div class="cc-icon">💬</div>
+        <div class="cc-label">WhatsApp</div>
+        <div class="cc-val">+242 065 805 713</div>
+      </a>
+      <a class="contact-card" href="mailto:makengoayessa584@gmail.com">
+        <div class="cc-icon">📧</div>
+        <div class="cc-label">Email</div>
+        <div class="cc-val">makengoayessa584@gmail.com</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="update-date">© 2025 SHOP-STORE — Tous droits réservés</div>
+</div>
+</body>
+</html>
