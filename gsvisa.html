@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAMER-SHOP | GS VISA</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+[data-theme="dark"]{--accent:#38bdf8;--accent2:#0ea5e9;--accent-glow:rgba(56,189,248,0.25);--bg:#0a0a0f;--bg2:#0f0f18;--bg3:#13131f;--card:#111118;--border:#1e1e2e;--border2:#252535;--text:#f0f4ff;--muted:#6b7280;--green:#25d366;--gold:#f59e0b;--platinum:#e2e8f0;--red:#e02020}
+[data-theme="light"]{--accent:#e02020;--accent2:#b01515;--accent-glow:rgba(224,32,32,0.15);--bg:#f8f8f8;--bg2:#fff;--bg3:#f0f0f0;--card:#fff;--border:#e5e5e5;--border2:#d4d4d4;--text:#111;--muted:#666;--green:#25d366;--gold:#f59e0b;--platinum:#64748b;--red:#e02020}
+
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-height:100vh;padding-bottom:4rem}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.2rem;border-bottom:1px solid var(--border);background:var(--bg2);position:sticky;top:0;z-index:200}
+.back-btn{display:flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.5rem .9rem;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .22s}
+.back-btn:active{transform:scale(.93)}
+.topbar-title{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+
+.page{max-width:520px;margin:0 auto;padding:1.2rem 1rem}
+
+/* LOADING */
+.loading-screen{text-align:center;padding:3rem 1rem;color:var(--muted);font-family:'Barlow Condensed',sans-serif}
+.loading-screen .spin{font-size:2rem;animation:spin 1s linear infinite;display:inline-block;margin-bottom:.5rem}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* NON CONNECTÉ */
+.login-prompt{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem;text-align:center;margin-top:1rem}
+.login-prompt .icon{font-size:2.5rem;margin-bottom:.8rem}
+.login-prompt h3{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:.4rem}
+.login-prompt p{font-size:.82rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.6}
+.btn-login{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.6rem 1.4rem;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;cursor:pointer;text-decoration:none}
+
+/* CARTE BANCAIRE */
+.card-wrap{perspective:1000px;margin-bottom:1.5rem}
+.bank-card{width:100%;max-width:380px;margin:0 auto;aspect-ratio:1.586;border-radius:16px;padding:1.4rem 1.5rem;position:relative;overflow:hidden;cursor:pointer;transition:transform .4s;transform-style:preserve-3d}
+.bank-card.standard{background:linear-gradient(135deg,#0a0a1a 0%,#1a1a3e 40%,#0d2d4a 100%);box-shadow:0 20px 60px rgba(56,189,248,0.3)}
+.bank-card.premium{background:linear-gradient(135deg,#1a0a00 0%,#3d1a00 40%,#2d1000 100%);box-shadow:0 20px 60px rgba(245,158,11,0.4)}
+.bank-card.locked{filter:grayscale(80%);opacity:.7}
+
+/* Effets sur la carte */
+.card-shimmer{position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.06) 50%,transparent 60%);animation:shimmer 3s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+.card-circle1{position:absolute;width:200px;height:200px;border-radius:50%;top:-60px;right:-60px;opacity:.15}
+.card-circle2{position:absolute;width:150px;height:150px;border-radius:50%;bottom:-50px;left:-30px;opacity:.1}
+.bank-card.standard .card-circle1{background:var(--accent)}
+.bank-card.standard .card-circle2{background:var(--accent2)}
+.bank-card.premium .card-circle1{background:var(--gold)}
+.bank-card.premium .card-circle2{background:#f97316}
+
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:auto}
+.card-logo{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;letter-spacing:1px}
+.card-logo .gs{color:#fff}
+.card-logo .visa-standard{color:var(--accent)}
+.card-logo .visa-premium{color:var(--gold)}
+.card-type-badge{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;padding:.2rem .5rem;border-radius:4px;letter-spacing:1px}
+.card-type-badge.standard{background:rgba(56,189,248,.2);color:var(--accent);border:1px solid rgba(56,189,248,.3)}
+.card-type-badge.premium{background:rgba(245,158,11,.2);color:var(--gold);border:1px solid rgba(245,158,11,.3)}
+
+.card-chip{width:40px;height:30px;background:linear-gradient(135deg,#d4af37,#f5d76e,#c8a415);border-radius:5px;margin:1rem 0 .8rem;position:relative;overflow:hidden}
+.card-chip::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 5px,rgba(0,0,0,.1) 5px,rgba(0,0,0,.1) 6px),repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(0,0,0,.1) 5px,rgba(0,0,0,.1) 6px)}
+
+.card-number{font-family:'Share Tech Mono',monospace;font-size:.95rem;letter-spacing:.18em;color:rgba(255,255,255,.9);margin-bottom:.8rem}
+
+.card-bottom{display:flex;align-items:flex-end;justify-content:space-between}
+.card-holder-label{font-size:.5rem;letter-spacing:1px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:.15rem}
+.card-holder-name{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase}
+.card-solde-label{font-size:.5rem;letter-spacing:1px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:.15rem;text-align:right}
+.card-solde{font-family:'Share Tech Mono',monospace;font-size:1rem;color:#fff;text-align:right}
+.card-solde.standard-color{color:var(--accent)}
+.card-solde.premium-color{color:var(--gold)}
+
+/* CARTE VERROUILLÉE */
+.lock-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;border-radius:16px}
+.lock-overlay .lock-icon{font-size:2rem}
+.lock-overlay span{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;color:rgba(255,255,255,.7);letter-spacing:1px}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:1.2rem}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center}
+.stat-val{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;line-height:1}
+.stat-val.blue{color:var(--accent)}
+.stat-val.gold{color:var(--gold)}
+.stat-val.green{color:var(--green)}
+.stat-lbl{font-size:.62rem;color:var(--muted);margin-top:.2rem}
+
+/* NIVEAUX */
+.levels-section{margin-bottom:1.2rem}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:800;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:.7rem}
+.level-row{display:flex;align-items:center;gap:.8rem;padding:.7rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:.4rem;transition:border .2s}
+.level-row.current{border-color:var(--accent)}
+.level-badge{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.level-info{flex:1}
+.level-name{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;letter-spacing:.5px}
+.level-req{font-size:.7rem;color:var(--muted)}
+.level-cashback{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;color:var(--green)}
+
+/* ACTIVATION */
+.activation-cards{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1.2rem}
+.act-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1rem;text-align:center;transition:all .22s}
+.act-card.standard-card{border-top:3px solid var(--accent)}
+.act-card.premium-card{border-top:3px solid var(--gold)}
+.act-card-icon{font-size:1.8rem;margin-bottom:.5rem}
+.act-card-name{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;letter-spacing:.5px;margin-bottom:.3rem}
+.act-card-price{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;margin-bottom:.5rem}
+.act-card-price.blue{color:var(--accent)}
+.act-card-price.gold{color:var(--gold)}
+.act-card-perks{font-size:.7rem;color:var(--muted);line-height:1.8;margin-bottom:.8rem;text-align:left}
+.act-card-perks span{display:block}
+.btn-activate{width:100%;padding:.5rem;border-radius:8px;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:800;letter-spacing:.5px;transition:all .2s}
+.btn-activate.blue{background:var(--accent);color:#fff}
+.btn-activate.gold{background:var(--gold);color:#000}
+.btn-activate:disabled{opacity:.5;cursor:not-allowed}
+
+/* HISTORIQUE */
+.history-section{margin-bottom:1.2rem}
+.history-item{display:flex;align-items:center;gap:.8rem;padding:.7rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:.4rem}
+.hist-icon{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.hist-icon.credit{background:rgba(37,211,102,.15);color:var(--green)}
+.hist-icon.debit{background:rgba(224,32,32,.15);color:var(--red)}
+.hist-info{flex:1}
+.hist-label{font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700}
+.hist-date{font-size:.68rem;color:var(--muted)}
+.hist-amount{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800}
+.hist-amount.credit{color:var(--green)}
+.hist-amount.debit{color:var(--red)}
+
+.empty-hist{text-align:center;padding:2rem;color:var(--muted);font-size:.82rem}
+
+/* MODAL ACTIVATION */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:500;align-items:center;justify-content:center}
+.modal.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:1.6rem;max-width:340px;width:92%;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.modal-box h3{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:800;margin-bottom:.3rem}
+.modal-box p{font-size:.78rem;color:var(--muted);margin-bottom:1rem;line-height:1.6}
+.modal-price{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;margin-bottom:.3rem}
+.modal-price.blue{color:var(--accent)}
+.modal-price.gold{color:var(--gold)}
+.modal-detail{font-size:.75rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.7}
+.modal-detail span{display:block}
+.btn-confirm{display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;padding:.65rem;border-radius:10px;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:800;margin-bottom:.5rem;transition:all .2s}
+.btn-confirm.blue{background:var(--accent);color:#fff}
+.btn-confirm.gold{background:var(--gold);color:#000}
+.btn-cancel-modal{width:100%;padding:.5rem;border-radius:8px;border:1.5px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;transition:all .2s}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(16px);background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:.65rem 1.1rem;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:600;z-index:999;opacity:0;pointer-events:none;transition:all .3s;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-color:var(--green);color:var(--green)}
+.toast.ko{border-color:var(--red);color:var(--red)}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<!-- MODAL ACTIVATION -->
+<div class="modal" id="act-modal">
+  <div class="modal-box">
+    <h3 id="modal-title">💳 Activer GS VISA Standard</h3>
+    <p>Activez votre carte pour commencer à gagner du cashback sur chaque achat.</p>
+    <div class="modal-price blue" id="modal-price">350 FCFA</div>
+    <div class="modal-detail" id="modal-detail"></div>
+    <button class="btn-confirm blue" id="btn-confirm-act" onclick="confirmActivation()">💳 Payer & Activer via WhatsApp</button>
+    <button class="btn-cancel-modal" onclick="document.getElementById('act-modal').classList.remove('open')">✕ Annuler</button>
+  </div>
+</div>
+
+<div class="topbar">
+  <button class="back-btn" onclick="if(document.referrer){history.back()}else{window.location='index.html'}"><span>←</span> Retour</button>
+  <div class="topbar-title">💳 GS VISA</div>
+  <div style="width:80px"></div>
+</div>
+
+<div class="page" id="main-page">
+  <div class="loading-screen" id="loading-screen">
+    <div class="spin">⏳</div>
+    <div>Chargement...</div>
+  </div>
+</div>
+
+<script>
+document.documentElement.setAttribute('data-theme', localStorage.getItem('ss_theme') || 'dark');
+function toast(msg,type='ok'){const el=document.getElementById('toast');el.textContent=msg;el.className='toast '+type+' show';setTimeout(()=>el.classList.remove('show'),2800);}
+
+const LEVELS = [
+  {name:'Bronze',emoji:'🥉',min:0,max:4,cashback:0.3,color:'#cd7f32'},
+  {name:'Silver',emoji:'🥈',min:5,max:9,cashback:0.5,color:'#a8a9ad'},
+  {name:'Gold',emoji:'🥇',min:10,max:19,cashback:0.8,color:'#f59e0b'},
+  {name:'Platinum',emoji:'💎',min:20,max:49,cashback:1.0,color:'#e2e8f0'},
+  {name:'VIP',emoji:'👑',min:50,max:Infinity,cashback:1.5,color:'#38bdf8'},
+];
+
+function getLevel(orderCount){
+  return LEVELS.find(l => orderCount >= l.min && orderCount <= l.max) || LEVELS[0];
+}
+
+function maskName(name){
+  if(!name) return 'CLIENT GAMER-SHOP';
+  const parts = name.split(' ');
+  return parts.map((p,i) => i===0 ? p.toUpperCase() : p[0].toUpperCase()+'***').join(' ');
+}
+
+function genCardNumber(uid){
+  const hash = uid.split('').reduce((a,c)=>a+c.charCodeAt(0),0);
+  const n = String(hash).padStart(16,'4').slice(0,16);
+  return n.replace(/(.{4})/g,'$1 ').trim();
+}
+
+let pendingActivationType = null;
+
+function openActivation(type){
+  pendingActivationType = type;
+  const modal = document.getElementById('act-modal');
+  const title = document.getElementById('modal-title');
+  const price = document.getElementById('modal-price');
+  const detail = document.getElementById('modal-detail');
+  const btn = document.getElementById('btn-confirm-act');
+  if(type === 'standard'){
+    title.textContent = '💳 Activer GS VISA Standard';
+    price.textContent = '350 FCFA';
+    price.className = 'modal-price blue';
+    btn.className = 'btn-confirm blue';
+    detail.innerHTML = '<span>✅ Cashback Bronze → VIP (0.3% à 1.5%)</span><span>✅ Déduction max 20% par commande</span><span>✅ Paiement unique, à vie</span>';
+  } else {
+    title.textContent = '⭐ Activer GS COIN Premium';
+    price.textContent = '2 500 FCFA';
+    price.className = 'modal-price gold';
+    btn.className = 'btn-confirm gold';
+    detail.innerHTML = '<span>⭐ 25% de réduction sur chaque commande</span><span>✅ Inclut tous les avantages Standard</span><span>✅ Paiement unique, à vie</span>';
+  }
+  modal.classList.add('open');
+}
+
+function confirmActivation(){
+  const type = pendingActivationType;
+  const price = type === 'standard' ? 350 : 2500;
+  const label = type === 'standard' ? 'GS VISA Standard' : 'GS COIN Premium';
+  const msg = `💳 *ACTIVATION ${label.toUpperCase()} — GAMER-SHOP*\n\n💰 *Montant :* ${price} FCFA\n📋 *Produit :* Activation carte ${label}\n\n_Merci de confirmer votre paiement pour activer votre carte._`;
+  window.open('https://wa.me/242067803987?text='+encodeURIComponent(msg),'_blank');
+  document.getElementById('act-modal').classList.remove('open');
+  toast('Redirection WhatsApp...','ok');
+}
+</script>
+
+<script type="module">
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey:"AIzaSyAdWC5zTUJGmrXDCnRcElomHHgcVPG-2Co",
+  authDomain:"shop-stor-1d943.firebaseapp.com",
+  databaseURL:"https://shop-stor-1d943-default-rtdb.firebaseio.com",
+  projectId:"shop-stor-1d943",
+  storageBucket:"shop-stor-1d943.firebasestorage.app",
+  messagingSenderId:"851885624502",
+  appId:"1:851885624502:web:16bb29dd0494d34a846a17"
+};
+
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth(app);
+
+const LEVELS = [
+  {name:'Bronze',emoji:'🥉',min:0,max:4,cashback:0.3,color:'#cd7f32'},
+  {name:'Silver',emoji:'🥈',min:5,max:9,cashback:0.5,color:'#a8a9ad'},
+  {name:'Gold',emoji:'🥇',min:10,max:19,cashback:0.8,color:'#f59e0b'},
+  {name:'Platinum',emoji:'💎',min:20,max:49,cashback:1.0,color:'#e2e8f0'},
+  {name:'VIP',emoji:'👑',min:50,max:Infinity,cashback:1.5,color:'#38bdf8'},
+];
+function getLevel(n){ return LEVELS.find(l=>n>=l.min&&n<=l.max)||LEVELS[0]; }
+
+onAuthStateChanged(auth, async (user) => {
+  const page = document.getElementById('main-page');
+  if(!user){
+    page.innerHTML = `
+      <div class="login-prompt">
+        <div class="icon">💳</div>
+        <h3>Connectez-vous pour accéder à votre GS VISA</h3>
+        <p>Créez un compte ou connectez-vous pour activer votre carte et commencer à gagner du cashback sur chaque achat.</p>
+        <a class="btn-login" href="compte.html">🔑 Se connecter</a>
+      </div>`;
+    return;
+  }
+
+  const snap = await get(ref(db, 'users/'+user.uid));
+  if(!snap.exists()){ page.innerHTML='<div class="loading-screen">Profil introuvable.</div>'; return; }
+  const userData = snap.val();
+
+  const orders = userData.orders ? Object.values(userData.orders) : [];
+  const orderCount = orders.length;
+  const level = getLevel(orderCount);
+  const gsCoins = userData.gsCoins || 0;
+  const hasStandard = userData.gsvisaStandard === true;
+  const hasPremium = userData.gscoinPremium === true;
+
+  // Cashback history
+  const cashbackHistory = userData.cashbackHistory ? Object.values(userData.cashbackHistory).reverse().slice(0,10) : [];
+
+  // Numéro de carte
+  const cardNumber = user.uid.slice(0,4).toUpperCase().padEnd(4,'X') + ' XXXX XXXX ' + user.uid.slice(-4).toUpperCase();
+
+  const cardClass = hasPremium ? 'premium' : hasStandard ? 'standard' : 'standard locked';
+  const logoColor = hasPremium ? 'visa-premium' : 'visa-standard';
+  const cardType = hasPremium ? 'PREMIUM' : 'STANDARD';
+  const cardTypeBadgeClass = hasPremium ? 'premium' : 'standard';
+  const soldeColor = hasPremium ? 'premium-color' : 'blue';
+
+  page.innerHTML = `
+    <!-- CARTE -->
+    <div class="card-wrap">
+      <div class="bank-card ${cardClass}" id="bank-card">
+        <div class="card-shimmer"></div>
+        <div class="card-circle1"></div>
+        <div class="card-circle2"></div>
+        <div class="card-top">
+          <div class="card-logo"><span class="gs">GS</span> <span class="${logoColor}">VISA</span></div>
+          <div class="card-type-badge ${cardTypeBadgeClass}">${cardType}</div>
+        </div>
+        <div class="card-chip"></div>
+        <div class="card-number">${cardNumber}</div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-holder-label">Titulaire</div>
+            <div class="card-holder-name">${(userData.name||'CLIENT').toUpperCase()}</div>
+          </div>
+          <div>
+            <div class="card-solde-label">Solde GS Coins</div>
+            <div class="card-solde ${soldeColor}">${gsCoins.toLocaleString('fr-FR')} GS</div>
+          </div>
+        </div>
+        ${!hasStandard && !hasPremium ? '<div class="lock-overlay"><div class="lock-icon">🔒</div><span>CARTE NON ACTIVÉE</span></div>' : ''}
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-val blue">${gsCoins.toLocaleString()}</div>
+        <div class="stat-lbl">GS Coins</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val gold">${level.emoji} ${level.name}</div>
+        <div class="stat-lbl">Niveau</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val green">${hasPremium ? '25%' : hasStandard ? level.cashback+'%' : '—'}</div>
+        <div class="stat-lbl">Cashback</div>
+      </div>
+    </div>
+
+    <!-- ACTIVATION -->
+    ${!hasStandard && !hasPremium ? `
+    <div class="section-title">Choisissez votre carte</div>
+    <div class="activation-cards">
+      <div class="act-card standard-card">
+        <div class="act-card-icon">💳</div>
+        <div class="act-card-name">GS VISA<br>Standard</div>
+        <div class="act-card-price blue">350 FCFA</div>
+        <div class="act-card-perks">
+          <span>✅ Cashback 0.3% → 1.5%</span>
+          <span>✅ Déduction max 20%</span>
+          <span>✅ Paiement unique</span>
+        </div>
+        <button class="btn-activate blue" onclick="openActivation('standard')">Activer</button>
+      </div>
+      <div class="act-card premium-card">
+        <div class="act-card-icon">⭐</div>
+        <div class="act-card-name">GS COIN<br>Premium</div>
+        <div class="act-card-price gold">2 500 FCFA</div>
+        <div class="act-card-perks">
+          <span>⭐ -25% sur tout</span>
+          <span>✅ Tout Standard inclus</span>
+          <span>✅ Paiement unique</span>
+        </div>
+        <button class="btn-activate gold" onclick="openActivation('premium')">Activer</button>
+      </div>
+    </div>` : hasStandard && !hasPremium ? `
+    <div class="activation-cards" style="grid-template-columns:1fr">
+      <div class="act-card premium-card">
+        <div class="act-card-icon">⭐</div>
+        <div class="act-card-name">Passer à GS COIN Premium</div>
+        <div class="act-card-price gold">2 500 FCFA</div>
+        <div class="act-card-perks">
+          <span>⭐ 25% de réduction sur chaque commande</span>
+          <span>✅ Remplace votre carte Standard</span>
+        </div>
+        <button class="btn-activate gold" onclick="openActivation('premium')">Upgrader</button>
+      </div>
+    </div>` : ''}
+
+    <!-- NIVEAUX -->
+    ${hasStandard && !hasPremium ? `
+    <div class="levels-section">
+      <div class="section-title">Niveaux de cashback</div>
+      ${LEVELS.map(l=>`
+        <div class="level-row ${level.name===l.name?'current':''}">
+          <div class="level-badge" style="background:${l.color}22;color:${l.color}">${l.emoji}</div>
+          <div class="level-info">
+            <div class="level-name" style="color:${l.color}">${l.name}</div>
+            <div class="level-req">${l.max===Infinity?l.min+' commandes +':l.min+'-'+l.max+' commandes'}</div>
+          </div>
+          <div class="level-cashback">${l.cashback}%</div>
+        </div>`).join('')}
+    </div>` : ''}
+
+    <!-- HISTORIQUE -->
+    <div class="history-section">
+      <div class="section-title">Historique GS Coins</div>
+      ${cashbackHistory.length ? cashbackHistory.map(h=>`
+        <div class="history-item">
+          <div class="hist-icon ${h.type==='credit'?'credit':'debit'}">${h.type==='credit'?'↑':'↓'}</div>
+          <div class="hist-info">
+            <div class="hist-label">${h.label||'Transaction'}</div>
+            <div class="hist-date">${h.date||''}</div>
+          </div>
+          <div class="hist-amount ${h.type==='credit'?'credit':'debit'}">${h.type==='credit'?'+':'−'}${h.amount} GS</div>
+        </div>`).join('') :
+        '<div class="empty-hist">📭 Aucune transaction pour le moment.<br>Activez votre carte et passez votre première commande !</div>'}
+    </div>
+  `;
+});
+</script>
+
+</body>
+</html>
