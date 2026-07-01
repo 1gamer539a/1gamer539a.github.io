@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAMER-SHOP | Accueil</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ── THÈMES ── */
+[data-theme="dark"]{
+  --accent:#38bdf8;--accent2:#0ea5e9;--accent-glow:rgba(56,189,248,0.25);
+  --bg:#0a0a0f;--bg2:#0f0f18;--bg3:#13131f;--card:#111118;--card2:#16161f;
+  --border:#1e1e2e;--border2:#252535;--text:#f0f4ff;--muted:#6b7280;--muted2:#374151;
+  --logo-color:#38bdf8;
+}
+[data-theme="light"]{
+  --accent:#e02020;--accent2:#b01515;--accent-glow:rgba(224,32,32,0.18);
+  --bg:#f8f8f8;--bg2:#fff;--bg3:#f0f0f0;--card:#fff;--card2:#fafafa;
+  --border:#e5e5e5;--border2:#d4d4d4;--text:#111;--muted:#666;--muted2:#bbb;
+  --logo-color:#e02020;
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-height:100vh;transition:background .3s,color .3s}
+
+/* ── HEADER ── */
+.site-header{
+  padding:1.8rem 1.4rem 1.2rem;
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;
+}
+.theme-toggle{
+  position:absolute;top:1.4rem;right:1.2rem;
+  width:44px;height:44px;border-radius:50%;
+  border:2px solid var(--border2);
+  background:var(--card2);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;transition:all .2s;
+}
+.theme-toggle:hover{border-color:var(--accent);transform:scale(1.08)}
+
+.logo-wrap{display:flex;flex-direction:column;align-items:center;gap:.5rem;margin-bottom:.4rem}
+.logo-icon-big{
+  width:72px;height:72px;
+  background:#0a0a0f;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  box-shadow:0 6px 28px var(--accent-glow);
+  transition:box-shadow .3s;
+}
+.logo-icon-big img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center;
+  transform:scale(1.55);
+}
+.site-name{
+  font-family:'Rajdhani',sans-serif;
+  font-size:2rem;font-weight:700;letter-spacing:2px;
+  color:var(--text);line-height:1;
+}
+.site-name span{color:var(--accent)}
+.site-tag{font-size:.78rem;color:var(--muted);letter-spacing:.5px;margin-top:.1rem}
+
+/* ── BANNIÈRE PROMO ── */
+#promo-banner{display:none;margin:.2rem 1rem .6rem;border-radius:8px;padding:.55rem 1rem;text-align:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.5px;position:relative}
+#promo-banner.show{display:block}
+#promo-banner .banner-close{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);background:none;border:none;color:inherit;cursor:pointer;font-size:.9rem;opacity:.7}
+#promo-banner .banner-timer{font-size:.78rem;opacity:.85;margin-left:.4rem}
+
+/* ── MENU ITEMS ── */
+.menu-list{
+  padding:.4rem .9rem 2rem;
+  display:flex;flex-direction:column;gap:.55rem;
+  max-width:520px;margin:0 auto;width:100%;
+}
+.menu-item{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.2rem;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  cursor:pointer;
+  text-decoration:none;
+  color:var(--text);
+  transition:all .22s;
+  position:relative;
+  overflow:hidden;
+}
+.menu-item::before{
+  content:'';position:absolute;inset:0;
+  background:var(--accent);
+  opacity:0;transition:opacity .2s;
+}
+.menu-item:hover{
+  border-color:var(--accent);
+  transform:translateX(4px);
+  box-shadow:0 4px 20px var(--accent-glow);
+}
+.menu-item:hover::before{opacity:.04}
+
+/* Animation tap mobile */
+.menu-item:active{transform:scale(.97) translateX(2px)}
+
+.menu-icon{
+  width:46px;height:46px;
+  background:var(--bg3);
+  border:1px solid var(--border2);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;flex-shrink:0;
+  transition:background .2s,border .2s;
+  position:relative;z-index:1;
+}
+.menu-item:hover .menu-icon{
+  background:var(--accent);
+  border-color:var(--accent);
+}
+.menu-text{flex:1;position:relative;z-index:1}
+.menu-label{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1rem;font-weight:800;letter-spacing:.8px;
+  text-transform:uppercase;
+  display:block;margin-bottom:.08rem;
+}
+.menu-desc{font-size:.74rem;color:var(--muted);line-height:1.4}
+.menu-arrow{
+  font-size:1.1rem;color:var(--muted);
+  transition:transform .2s,color .2s;
+  position:relative;z-index:1;
+  flex-shrink:0;
+}
+.menu-item:hover .menu-arrow{
+  transform:translateX(4px);
+  color:var(--accent);
+}
+
+/* Badge sur icône panier */
+.menu-badge{
+  position:absolute;top:-4px;right:-4px;
+  background:var(--accent);color:#fff;
+  font-size:.55rem;font-weight:700;
+  min-width:16px;height:16px;
+  border-radius:8px;
+  display:none;align-items:center;justify-content:center;
+  padding:0 3px;
+}
+.menu-badge.show{display:flex}
+
+/* ── SÉPARATEUR ── */
+.menu-sep{
+  display:flex;align-items:center;gap:.6rem;
+  padding:.2rem .4rem;
+  max-width:520px;margin:0 auto;width:100%;
+}
+.menu-sep span{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.65rem;font-weight:700;letter-spacing:2px;
+  color:var(--muted);text-transform:uppercase;white-space:nowrap;
+}
+.menu-sep::before,.menu-sep::after{
+  content:'';flex:1;height:1px;background:var(--border);
+}
+
+/* ── FOOTER ── */
+.site-footer{
+  text-align:center;padding:1rem;
+  font-size:.7rem;color:var(--muted2);
+  border-top:1px solid var(--border);
+  max-width:520px;margin:0 auto;
+}
+.site-footer span{color:var(--accent)}
+
+/* ── AVIS CLIENTS ── */
+.avis-section{max-width:520px;margin:1.5rem auto 0;padding:0 1rem}
+.avis-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+.avis-title{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--text)}
+.avis-title span{color:var(--accent)}
+.btn-laisser-avis{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:.4rem .8rem;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-laisser-avis:hover{background:var(--accent2)}
+.avis-scroll{display:flex;gap:.7rem;overflow-x:auto;padding-bottom:.5rem;scroll-snap-type:x mandatory}
+.avis-card{flex:0 0 240px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem;scroll-snap-align:start}
+.avis-stars{color:#f5c518;font-size:.85rem;margin-bottom:.3rem}
+.avis-text{font-size:.78rem;color:var(--text);line-height:1.5;margin-bottom:.5rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.avis-foot{display:flex;justify-content:space-between;align-items:center;font-size:.68rem;color:var(--muted)}
+.avis-foot .avis-nom{font-weight:700;color:var(--text)}
+.avis-empty{text-align:center;color:var(--muted);font-size:.78rem;padding:1.5rem 0;width:100%}
+
+/* ── MODAL AVIS ── */
+.avis-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:600;align-items:center;justify-content:center;padding:1rem}
+.avis-modal.open{display:flex}
+.avis-box{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:1.5rem;max-width:380px;width:100%;animation:fadeUp .25s ease;max-height:85vh;overflow-y:auto}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.avis-box h3{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:.2rem}
+.avis-box p{font-size:.78rem;color:var(--muted);margin-bottom:1rem}
+.avis-field{margin-bottom:.8rem}
+.avis-field label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.8px;color:var(--muted);margin-bottom:.3rem;text-transform:uppercase}
+.avis-field input,.avis-field textarea{width:100%;background:var(--bg3);border:1.5px solid var(--border2);border-radius:8px;padding:.55rem .85rem;color:var(--text);font-family:'Barlow',sans-serif;font-size:.84rem;outline:none;transition:border .2s;box-sizing:border-box}
+.avis-field input:focus,.avis-field textarea:focus{border-color:var(--accent)}
+.avis-field textarea{resize:vertical;min-height:80px}
+.star-picker{display:flex;gap:.3rem;font-size:1.6rem;cursor:pointer}
+.star-picker span{opacity:.3;transition:opacity .15s}
+.star-picker span.filled{opacity:1}
+.btn-submit-avis{width:100%;padding:.6rem;border-radius:8px;border:none;background:var(--accent);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;cursor:pointer;margin-top:.4rem;transition:all .2s}
+.btn-submit-avis:hover{background:var(--accent2)}
+.btn-cancel-avis{width:100%;padding:.5rem;border-radius:8px;border:1.5px solid var(--border2);background:transparent;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;margin-top:.4rem}
+.btn-cancel-avis:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── BROWSER WARNING MODAL ── */
+.browser-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;padding:1.2rem}
+.browser-modal-overlay.open{display:flex}
+.browser-modal-box{background:#111;border:1.5px solid #ff8c00;border-radius:16px;padding:2rem 1.6rem;max-width:360px;width:100%;text-align:center;animation:bwFadeUp .3s ease}
+@keyframes bwFadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.bw-icon{font-size:3rem;margin-bottom:.8rem}
+.bw-title{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:900;letter-spacing:1px;color:#ff8c00;margin-bottom:.4rem}
+.bw-desc{font-size:.82rem;color:#aaa;line-height:1.55;margin-bottom:1.4rem}
+.bw-desc strong{color:#fff}
+.bw-btn-main{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;padding:.72rem;border-radius:10px;border:none;background:#ff8c00;color:#000;font-family:'Barlow Condensed',sans-serif;font-size:.98rem;font-weight:900;letter-spacing:.6px;cursor:pointer;margin-bottom:.6rem;transition:all .2s}
+.bw-btn-main:hover{background:#e07a00}
+.bw-btn-copy{display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;padding:.6rem;border-radius:10px;border:1.5px solid #333;background:transparent;color:#aaa;font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:.5rem;transition:all .2s}
+.bw-btn-copy:hover{border-color:#ff8c00;color:#ff8c00}
+.bw-skip{font-size:.73rem;color:#555;cursor:pointer;text-decoration:underline;margin-top:.3rem;display:inline-block}
+.bw-skip:hover{color:#888}
+.bw-url-box{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:.55rem .8rem;font-size:.72rem;color:#888;word-break:break-all;margin:.8rem 0;text-align:left;line-height:1.4}
+</style>
+</head>
+<body>
+
+<!-- BANNIÈRE PROMO -->
+<div id="promo-banner">
+  <span id="banner-text"></span>
+  <span class="banner-timer" id="banner-timer"></span>
+  <button class="banner-close" onclick="this.parentElement.style.display='none'">✕</button>
+</div>
+
+<!-- HEADER -->
+<div class="site-header">
+  <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Changer le thème">🌙</button>
+  <div class="logo-wrap">
+    <div class="logo-icon-big"><img src="https://i.ibb.co/XrqHLX7T/IMG-3062.png" alt="GAMER-SHOP logo"></div>
+    <div class="site-name">GAMER<span>-SHOP</span></div>
+    <div class="site-tag">Vos envies, notre priorité !</div>
+  </div>
+</div>
+
+<!-- MENU -->
+<div class="menu-list">
+
+  <!-- BOUTIQUE -->
+  <a class="menu-item" href="boutique.html">
+    <div class="menu-icon">🛒</div>
+    <div class="menu-text">
+      <span class="menu-label">Boutique</span>
+      <span class="menu-desc">Jeux, diamants, abonnements · <span id="cart-desc">Panier vide</span></span>
+    </div>
+    <div style="display:flex;align-items:center;gap:.4rem;position:relative;z-index:1">
+      <span class="menu-badge" id="cart-badge" style="position:static;display:none;background:var(--accent);color:#fff;font-size:.65rem;font-weight:700;min-width:20px;height:20px;border-radius:10px;align-items:center;justify-content:center;padding:0 4px"></span>
+      <span class="menu-arrow">›</span>
+    </div>
+  </a>
+  <a class="menu-item" href="compte.html#commandes">
+    <div class="menu-icon">📦</div>
+    <div class="menu-text">
+      <span class="menu-label">Mes commandes</span>
+      <span class="menu-desc">Suivre et gérer vos commandes</span>
+    </div>
+    <span class="menu-arrow">›</span>
+  </a>
+
+  <!-- MON COMPTE -->
+  <a class="menu-item" href="compte.html">
+    <div class="menu-icon">👤</div>
+    <div class="menu-text">
+      <span class="menu-label" id="menu-compte-label">Mon compte</span>
+      <span class="menu-desc" id="menu-compte-desc">Connexion, profil et paramètres</span>
+    </div>
+    <span class="menu-arrow">›</span>
+  </a>
+
+  <div class="menu-sep"><span>Plus</span></div>
+
+  <!-- CONTACT -->
+  <a class="menu-item" href="contact.html">
+    <div class="menu-icon">📞</div>
+    <div class="menu-text">
+      <span class="menu-label">Contact</span>
+      <span class="menu-desc">WhatsApp, email et support</span>
+    </div>
+    <span class="menu-arrow">›</span>
+  </a>
+
+  <!-- NOS RÉSEAUX -->
+  <a class="menu-item" href="reseaux.html">
+    <div class="menu-icon">🌐</div>
+    <div class="menu-text">
+      <span class="menu-label">Nos réseaux</span>
+      <span class="menu-desc">Facebook, Instagram, TikTok et plus</span>
+    </div>
+    <span class="menu-arrow">›</span>
+  </a>
+
+  <!-- GS VISA -->
+  <a class="menu-item" href="gsvisa.html">
+    <div class="menu-icon">💳</div>
+    <div class="menu-text">
+      <span class="menu-label">GS VISA</span>
+      <span class="menu-desc">Carte virtuelle · Cashback & réductions</span>
+    </div>
+    <span class="menu-arrow">›</span>
+  </a>
+
+  <!-- LÉGAL -->
+  <a class="menu-item" href="legal.html">
+    <div class="menu-icon">📄</div>
+    <div class="menu-text">
+      <span class="menu-label">Légal</span>
+      <span class="menu-desc">CGV, confidentialité, à propos</span>
+    </div>
+    <span class="menu-arrow">›</span>
+  </a>
+
+</div>
+
+<!-- AVIS CLIENTS -->
+<div class="avis-section">
+  <div class="avis-header">
+    <div class="avis-title">⭐ AVIS <span>CLIENTS</span></div>
+    <button class="btn-laisser-avis" onclick="document.getElementById('avis-modal').classList.add('open')">+ Laisser un avis</button>
+  </div>
+  <div class="avis-scroll" id="avis-scroll">
+    <div class="avis-empty">⏳ Chargement des avis...</div>
+  </div>
+</div>
+
+<!-- MODAL AVIS -->
+<div class="avis-modal" id="avis-modal">
+  <div class="avis-box">
+    <h3>⭐ Votre avis compte !</h3>
+    <p>Partagez votre expérience avec GAMER-SHOP.</p>
+    <div class="avis-field">
+      <label>Votre nom</label>
+      <input type="text" id="av-nom" placeholder="Votre nom ou pseudo">
+    </div>
+    <div class="avis-field">
+      <label>Jeu / Produit concerné</label>
+      <input type="text" id="av-jeu" placeholder="Ex: Free Fire, Netflix...">
+    </div>
+    <div class="avis-field">
+      <label>Note</label>
+      <div class="star-picker" id="star-picker">
+        <span data-v="1">⭐</span><span data-v="2">⭐</span><span data-v="3">⭐</span><span data-v="4">⭐</span><span data-v="5">⭐</span>
+      </div>
+    </div>
+    <div class="avis-field">
+      <label>Votre avis</label>
+      <textarea id="av-texte" placeholder="Dites-nous ce que vous avez pensé du service..."></textarea>
+    </div>
+    <button class="btn-submit-avis" onclick="submitAvis()">Envoyer mon avis</button>
+    <button class="btn-cancel-avis" onclick="document.getElementById('avis-modal').classList.remove('open')">Annuler</button>
+  </div>
+</div>
+
+<!-- ══ BROWSER WARNING MODAL ══ -->
+<div class="browser-modal-overlay" id="browser-modal">
+  <div class="browser-modal-box">
+    <div class="bw-icon">🌐</div>
+    <div class="bw-title">OUVRE DANS TON NAVIGATEUR</div>
+    <div class="bw-desc">
+      Tu utilises le navigateur intégré de <strong>WhatsApp / Facebook / Instagram</strong>.<br><br>
+      Pour commander, tu dois ouvrir ce site dans <strong>Chrome</strong> ou <strong>Safari</strong>.
+    </div>
+    <button class="bw-btn-main" onclick="bwOpenExternal()">🚀 Ouvrir dans Chrome / Safari</button>
+    <button class="bw-btn-copy" onclick="bwCopyLink()">📋 Copier le lien</button>
+    <span class="bw-skip" onclick="document.getElementById('browser-modal').classList.remove('open')">Continuer quand même</span>
+  </div>
+</div>
+
+<div class="site-footer">© 2025 <span>GAMER-SHOP</span> — Tous droits réservés</div>
+
+<script>
+// ── THÈME ──
+const THEME_KEY = 'ss_theme';
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('theme-toggle').textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem(THEME_KEY, t);
+}
+function toggleTheme(){
+  const cur = document.documentElement.getAttribute('data-theme');
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+}
+// Charger thème sauvegardé
+applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+
+// ── PANIER ──
+const cart = JSON.parse(localStorage.getItem('ss_cart') || '[]');
+const n = cart.reduce((s, i) => s + i.qty, 0);
+if(n > 0){
+  const badge = document.getElementById('cart-badge');
+  badge.textContent = n;
+  badge.style.display = 'flex';
+  document.getElementById('cart-desc').textContent = n + ' article' + (n > 1 ? 's' : '') + ' dans le panier';
+}
+
+// ── SESSION ──
+(function(){
+  // ── SESSION Firebase Auth ──
+  const cached = JSON.parse(localStorage.getItem('gs_user_cache')||'null');
+  if(cached && cached.name){
+    document.getElementById('menu-compte-label').textContent = cached.name;
+    document.getElementById('menu-compte-desc').textContent = 'Connecté · Voir mon profil';
+  }
+})();
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, onValue, push, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAdWC5zTUJGmrXDCnRcElomHHgcVPG-2Co",
+  authDomain: "shop-stor-1d943.firebaseapp.com",
+  databaseURL: "https://shop-stor-1d943-default-rtdb.firebaseio.com",
+  projectId: "shop-stor-1d943",
+  storageBucket: "shop-stor-1d943.firebasestorage.app",
+  messagingSenderId: "851885624502",
+  appId: "1:851885624502:web:16bb29dd0494d34a846a17"
+};
+
+let appIndex;
+try { appIndex = initializeApp(firebaseConfig, 'index-app'); } catch(e) { appIndex = initializeApp(firebaseConfig); }
+const dbIndex = getDatabase(appIndex);
+
+// ── Bannière promo Firebase ──
+onValue(ref(dbIndex, 'banniere'), snap => {
+  if(!snap.exists()) return;
+  const b = snap.val();
+  if(!b.actif) return;
+  const banner = document.getElementById('promo-banner');
+  banner.style.background = b.couleur || '#e02020';
+  banner.style.color = b.textColor || '#fff';
+  document.getElementById('banner-text').textContent = b.texte || '';
+  banner.classList.add('show');
+  if(b.timer && b.timerEnd){
+    const timerEl = document.getElementById('banner-timer');
+    function tick(){
+      const diff = new Date(b.timerEnd) - new Date();
+      if(diff <= 0){ timerEl.textContent = '⏰ Offre expirée'; return; }
+      const h = Math.floor(diff/3600000);
+      const m = Math.floor((diff%3600000)/60000);
+      const s = Math.floor((diff%60000)/1000);
+      timerEl.textContent = `⏱️ ${h}h ${m}m ${s}s`;
+      setTimeout(tick, 1000);
+    }
+    tick();
+  }
+});
+
+// ── AVIS CLIENTS ──
+onValue(ref(dbIndex, 'avis'), snap => {
+  const scroll = document.getElementById('avis-scroll');
+  if(!snap.exists()){
+    scroll.innerHTML = '<div class="avis-empty">Soyez le premier à laisser un avis ! ⭐</div>';
+    return;
+  }
+  const data = snap.val();
+  const validated = Object.values(data).filter(a => a.statut === 'validé');
+  if(!validated.length){
+    scroll.innerHTML = '<div class="avis-empty">Soyez le premier à laisser un avis ! ⭐</div>';
+    return;
+  }
+  validated.sort((a,b) => (b.date||0) - (a.date||0));
+  scroll.innerHTML = validated.map(a => `
+    <div class="avis-card">
+      <div class="avis-stars">${'⭐'.repeat(a.note||5)}</div>
+      <div class="avis-text">${a.texte}</div>
+      <div class="avis-foot">
+        <span class="avis-nom">${a.nom}</span>
+        <span>${a.jeu || ''}</span>
+      </div>
+    </div>
+  `).join('');
+});
+
+// ── Sélecteur d'étoiles ──
+let selectedNote = 5;
+const stars = document.querySelectorAll('#star-picker span');
+function updateStars(n){
+  selectedNote = n;
+  stars.forEach(s => s.classList.toggle('filled', parseInt(s.dataset.v) <= n));
+}
+stars.forEach(s => s.addEventListener('click', () => updateStars(parseInt(s.dataset.v))));
+updateStars(5);
+
+// ── Soumettre un avis ──
+window.submitAvis = async function(){
+  const nom = document.getElementById('av-nom').value.trim();
+  const jeu = document.getElementById('av-jeu').value.trim();
+  const texte = document.getElementById('av-texte').value.trim();
+  if(!nom || !texte){
+    alert('Merci de remplir votre nom et votre avis.');
+    return;
+  }
+  const newRef = push(ref(dbIndex, 'avis'));
+  await set(newRef, {
+    nom, jeu, texte,
+    note: selectedNote,
+    statut: 'en attente',
+    date: Date.now()
+  });
+  document.getElementById('av-nom').value = '';
+  document.getElementById('av-jeu').value = '';
+  document.getElementById('av-texte').value = '';
+  updateStars(5);
+  document.getElementById('avis-modal').classList.remove('open');
+  alert('✅ Merci ! Votre avis a été envoyé et sera publié après validation.');
+};
+</script>
+
+
+
+
+<script>
+// ── DÉTECTION NAVIGATEUR IN-APP ──
+(function(){
+  var ua = navigator.userAgent || '';
+  var isInApp = /FBAN|FBAV|Instagram|WhatsApp|wv|MicroMessenger|TikTok|Snapchat/.test(ua);
+  var isAndroidWV = /Android/.test(ua) && /wv/.test(ua);
+  if(isInApp || isAndroidWV){
+    document.getElementById('browser-modal').classList.add('open');
+  }
+})();
+
+function bwOpenExternal(){
+  var url = window.location.href;
+  var ua = navigator.userAgent || '';
+  if(/Android/.test(ua)){
+    // Tenter d'ouvrir Chrome via intent
+    window.location = 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;end';
+    // Fallback après 1.5s si Chrome non installé
+    setTimeout(function(){
+      try { window.open(url, '_blank'); } catch(e){ bwShowCopy(); }
+    }, 1500);
+  } else {
+    // iOS : on ne peut pas forcer Safari mais on essaie un nouvel onglet
+    try {
+      var w = window.open(url, '_blank');
+      if(!w || w.closed) bwShowCopy();
+    } catch(e){ bwShowCopy(); }
+  }
+}
+
+function bwCopyLink(){
+  var url = window.location.href;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(function(){
+      alert('✅ Lien copié ! Colle-le dans Chrome ou Safari pour commander.');
+    }).catch(function(){ bwShowCopy(); });
+  } else {
+    bwShowCopy();
+  }
+}
+
+function bwShowCopy(){
+  var box = document.querySelector('.browser-modal-box');
+  var url = window.location.href;
+  box.innerHTML = '<div class="bw-icon">📋</div>'
+    + '<div class="bw-title">COPIE CE LIEN</div>'
+    + '<div class="bw-desc">Copie le lien ci-dessous et colle-le dans <strong>Chrome</strong> ou <strong>Safari</strong>.</div>'
+    + '<div class="bw-url-box">' + url + '</div>'
+    + '<button class="bw-btn-main" onclick="fallbackCopy(\'' + url + '\')">📋 Copier le lien</button>'
+    + '<span class="bw-skip" onclick="document.getElementById(\'browser-modal\').classList.remove(\'open\')">Continuer quand même</span>';
+}
+
+function fallbackCopy(url){
+  var ta = document.createElement('textarea');
+  ta.value = url;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try {
+    document.execCommand('copy');
+    alert('✅ Lien copié ! Colle-le dans Chrome ou Safari.');
+  } catch(e){
+    alert('Copie manuelle : ' + url);
+  }
+  document.body.removeChild(ta);
+}
+</script>
+
+</body>
+</html>
