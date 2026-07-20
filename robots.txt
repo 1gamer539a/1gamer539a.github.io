@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /compte.html
+Disallow: /caisse.html
+
+Sitemap: https://1gamer539a.github.io/sitemap.xml
